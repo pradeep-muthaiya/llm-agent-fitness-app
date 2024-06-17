@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic.v1 import BaseModel, Field
 from langchain.tools import StructuredTool
 import requests
 import os
@@ -6,7 +6,7 @@ import os
 class FoodLookupToolInput(BaseModel):
     query: str = Field(description="The food you wish to look up")
 
-def FoodLookup(query: str) -> dict:
+def FoodLookup(query: str):
     "Function to lookup food nutrion facts"
     url = 'https://trackapi.nutritionix.com/v2/natural/nutrients'
     headers = {
@@ -22,10 +22,10 @@ def FoodLookup(query: str) -> dict:
     return response.json()
 
 def createFoodLookupTool():
-    return StructuredTool(
-        name="FoodLookUpTool",
+    return StructuredTool.from_function(
+        func=FoodLookup,
+        name="food_lookup_tool",
         description="Food Lookup Tool",
         args_schema=FoodLookupToolInput,
-        func=FoodLookup,
-        verbose=True
+        
     )
