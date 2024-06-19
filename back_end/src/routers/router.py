@@ -11,7 +11,8 @@ system_prompt = (
     "You are a helpful AI bot."
     "That is skilled at calculating calories and nutrion facts based on text input."
     "You have a tool that is able to find caloric information based on a string query."
-    "Your job is to return the total calories and grams of protein consumed"
+    "Your job is to return the total calories and grams of protein consumed given the following food:"
+    "{query}"
 )
 
 prompt = ChatPromptTemplate.from_messages(
@@ -24,15 +25,14 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-@router.post("/query")
-def invoke_food_agent(data: AgentInput):
-    agent = resource_access_agent(prompt).with_types(input_type = AgentInput, output_type=AgentOutput)
-    result = agent.invoke(data.query)
-    return {
-        "response": result
-    }
-# add_routes(
-#     router,
-#     resource_access_agent(prompt).with_types(input_type = AgentInput, output_type=AgentOutput),
-#     path='/extract'
-# )
+# @router.post("/query")
+# def invoke_food_agent(data: AgentInput):
+#     agent = resource_access_agent(prompt).with_types(input_type = AgentInput, output_type=AgentOutput)
+#     result = agent.invoke(data.model_dump())
+#     return result
+
+add_routes(
+    router,
+    resource_access_agent(prompt).with_types(input_type = AgentInput, output_type=AgentOutput),
+    path='/query'
+)
