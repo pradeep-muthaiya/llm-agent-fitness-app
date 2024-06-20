@@ -72,3 +72,26 @@
   background-color: grey;
   /* Darker shade of grey on hover */
 }
+
+.Summary {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.Food-cards {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.Food-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  margin: 10px;
+  padding: 20px;
+  text-align: left;
+}
