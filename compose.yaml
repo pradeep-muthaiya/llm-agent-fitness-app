@@ -1,0 +1,9 @@
+services:
+  app:
+    build: front_end/reactapp/
+    ports:
+      - "3000:3000"
+  api:
+    build: back_end/
+    ports:
+      - "8001:8001"
